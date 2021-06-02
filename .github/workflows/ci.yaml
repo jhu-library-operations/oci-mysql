@@ -17,7 +17,7 @@ jobs:
         id: vars
         run: |
           echo "##[set-output name=branch;]$echo ${GITHUB_REF#refs/heads/})"
-          echo "::set-output name=sha_short::$(git rev-parse --short HEAD}"
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
       
       - name: build and push
         id: docker_build
