@@ -29,5 +29,5 @@ jobs:
             jhu-library-operations/mysql:latest
             jhu-library-operations/mysql:${{ steps.vars.outputs.sha_short }}
       
-            - name: Image digest
+      - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
