@@ -12,13 +12,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Declare some variables
+      - name: Get the version
         id: vars
-        shell: bash
-        run: |
-          echo "::[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-
+        run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
 
       - name: build and push
         id: docker_build
@@ -27,7 +23,7 @@ jobs:
           push: false
           tags: |
             jhu-library-operations/mysql:latest
-            jhu-library-operations/mysql:${{ steps.vars.outputs.sha_short }}
+            jhu-library-operations/mysql:${{steps.vars.outputs.tag}}
       
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
