@@ -14,7 +14,7 @@ jobs:
 
       - name: Get the version
         id: vars
-        run: echo ::set-output name=tag::$(git rev-parse --short HEAD)
+        run: "::set-output name=tag::$(git rev-parse --short HEAD)"
 
       - name: build and push
         id: docker_build
@@ -22,8 +22,8 @@ jobs:
         with:
           push: false
           tags: |
-            jhu-library-operations/mysql:latest
-            jhu-library-operations/mysql:${{steps.vars.outputs.tag}}
+            ghcr.io/jhu-library-operations/mysql:latest
+            ghcr.io/jhu-library-operations/mysql:${{steps.vars.outputs.tag}}
       
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
