@@ -28,5 +28,12 @@ jobs:
             jhu-library-operations/mysql:latest
             jhu-library-operations/mysql:${{ steps.vars.outputs.sha_short }}
       
+      - name: Declare some variables
+            id: vars
+            shell: bash
+            run: |
+              echo "::[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+              echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
